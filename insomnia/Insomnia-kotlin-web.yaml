@@ -1,0 +1,60 @@
+_type: export
+__export_format: 4
+__export_date: 2023-01-24T17:45:51.799Z
+__export_source: insomnia.desktop.app:v2022.7.5
+resources:
+  - _id: req_b8d253e53019439882b43d57dd8baac9
+    parentId: wrk_15c5b293ff7e4dbaaf595c8e4b318bcf
+    modified: 1674582258825
+    created: 1674582221527
+    url: http://localhost:5555/product/1
+    name: New Request
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1674582221527
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_15c5b293ff7e4dbaaf595c8e4b318bcf
+    parentId: null
+    modified: 1674582196003
+    created: 1674582196003
+    name: blocking
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: env_1ddf54872550857127ba717e08b00fa641faa55e
+    parentId: wrk_15c5b293ff7e4dbaaf595c8e4b318bcf
+    modified: 1674582196009
+    created: 1674582196009
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1674582196009
+    _type: environment
+  - _id: jar_1ddf54872550857127ba717e08b00fa641faa55e
+    parentId: wrk_15c5b293ff7e4dbaaf595c8e4b318bcf
+    modified: 1674582196011
+    created: 1674582196011
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_325f2ea36e28436ab425f248bfbe8b7e
+    parentId: wrk_15c5b293ff7e4dbaaf595c8e4b318bcf
+    modified: 1674582196004
+    created: 1674582196004
+    fileName: blocking
+    contents: ""
+    contentType: yaml
+    _type: api_spec
