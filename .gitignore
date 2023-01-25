@@ -24,3 +24,5 @@ hs_err_pid*
 
 
 .env
+notes.md
+.vscode/settings.json

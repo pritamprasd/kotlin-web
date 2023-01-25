@@ -8,14 +8,22 @@ Sample Product repository
 - Postgres :heavy_check_mark: 
 - DB data viewer
 - Docker-Compose :heavy_check_mark: 
+- OpenAPI:
+    - Server stub generation
+    - Client stub geenration
 - Flyway
+- Jooq
 - Integration Tests
 - Caching with Redis
 - IDP with Keycloak
 - Micrometer
 - Tools for metrices consumption
 - Grafana to pull data from metrices
-
+- github pipeline:
+    - project build
+    - setup sonar 
+    - OWASP ZAP integration
+- 
 
 ## Notes
 ### Postgres

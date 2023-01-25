@@ -7,5 +7,6 @@ import org.springframework.boot.runApplication
 class KotlinSbBlockingApplication
 
 fun main(args: Array<String>) {
-	runApplication<KotlinSbBlockingApplication>(*args)
+    runApplication<KotlinSbBlockingApplication>(*args) {
+    }
 }
