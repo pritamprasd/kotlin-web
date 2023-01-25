@@ -9,7 +9,7 @@ Sample Product repository
 - DB data viewer
 - Docker-Compose :heavy_check_mark: 
 - OpenAPI:
-    - Server stub generation
+    - Server stub generation :heavy_check_mark: 
     - Client stub geenration
 - Flyway
 - Jooq

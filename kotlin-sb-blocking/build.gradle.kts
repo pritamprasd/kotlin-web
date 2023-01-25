@@ -1,3 +1,4 @@
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
@@ -20,32 +21,36 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-web") {
+        exclude(module = "spring-boot-starter-logging")
+    }
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.openapitools:openapi-generator-gradle-plugin:5.0.0")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
+    implementation("javax.validation:validation-api:2.0.1.Final")
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
-    }
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-val serverPath = "$rootDir/server-stub"
 
+val serverPath = "$rootDir/src/main/kotlin/dev/pritam/blocking/generated"
+
+val preGenerateCleanup by tasks.registering(Delete::class) {
+    delete = setOf(
+        fileTree(serverPath),
+    )
+}
 val generateServerStub by tasks.registering(GenerateTask::class) {
-    inputSpec.set("$rootDir/spec.yml") // /brahma/api/spec.yml
-    outputDir.set(serverPath)
+    dependsOn(preGenerateCleanup)
+    inputSpec.set("$rootDir/spec.yml")
+    outputDir.set("$rootDir")
 
     generatorName.set("kotlin-spring")
-    apiPackage.set("org.pritam.blocking.api")
-    modelPackage.set("org.pritam.blocking.model")
+    apiPackage.set("dev.pritam.blocking.generated.api")
+    modelPackage.set("dev.pritam.blocking.generated.model")
     configOptions.set(
         mapOf(
             "dateLibrary" to "java8",
@@ -53,7 +58,34 @@ val generateServerStub by tasks.registering(GenerateTask::class) {
             "interfaceOnly" to "true",
             "gradleBuildFile" to "false",
             "exceptionHandler" to "false",
-            "enumPropertyNaming" to "UPPERCASE"
+            "enumPropertyNaming" to "UPPERCASE",
         )
     )
+}
+val postGenerateCleanup by tasks.registering(Delete::class) {
+    dependsOn(generateServerStub)
+    delete = setOf(
+        fileTree("$rootDir/src/main/kotlin/org/"),
+        file("$rootDir/.openapi-generator-ignore"),
+        file("$rootDir/pom.xml"),
+        file("$rootDir/README.md"),
+        file("$serverPath/api/ApiUtil.kt")
+    )
+}
+
+ktlint {
+    filter {
+        exclude { e -> e.file.path.contains("generated/") }
+    }
+}
+
+tasks.ktlintFormat {}
+
+tasks.named<KotlinCompile>("compileKotlin") {
+    dependsOn(postGenerateCleanup)
+    dependsOn(tasks.ktlintFormat)
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "17"
+    }
 }
