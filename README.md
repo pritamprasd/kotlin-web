@@ -1,29 +1,76 @@
 # kotlin-web
 Sample Product repository
 
-## Experimentation:
+## Experimentation/ Sample Design:
 - Kotlin :heavy_check_mark: 
 - Spring Boot Blocking :heavy_check_mark: 
-- Spring Boot Reactive
 - Postgres :heavy_check_mark: 
-- DB data viewer
-- Docker-Compose :heavy_check_mark: 
-- OpenAPI:
-    - Server stub generation :heavy_check_mark: 
-    - Client stub geenration
-- Flyway
-- Jooq
-- Integration Tests
+- DB data viewer 
+- Docker-Compose :heavy_check_mark:
+- OpenAPI: Server stub generation :heavy_check_mark:
+- OpenAPI: Blocking Client stub geenration(Feign) 
+- DAO Layer
+    - Flyway : Migrations
+    - Jooq : Dao
+- Auth layer(Service discovery or one-to-one auth)
+    - Client Authentication with API-KEY & Secret
+    - Auto key Rotation
+    - Rate limit based on API-KEY
+- Sample blocking client
+- Spring Boot Reactive
+- Sample non-blocking client.
+- OpenAPI: Blocking Client stub generation(Webclient???)
 - Caching with Redis
-- IDP with Keycloak
-- Micrometer
+- Keycloak for User Management.(Or for client managment)
+- Integration Tests
+- Micrometer Integration
 - Tools for metrices consumption
 - Grafana to pull data from metrices
-- github pipeline:
+- Github pipeline
     - project build
     - setup sonar 
     - OWASP ZAP integration
-- 
+- Kotlin:
+    - suspend and continuation
+    - 
+
+## HLD
+```mermaid
+C4Context
+title High Level Components
+Enterprise_Boundary(eb0, "Enterprise Boundary") {
+    Person(p0, "User", "A user having account in the system")
+    Person(p1, "Admin", "Admin User")
+    Enterprise_Boundary(eb1, "Internal System") {
+        System_Boundary(sb0, "Internal Services Layer", "") {
+            System(s01, "Products Service", "Service handling products inventory")            
+            SystemQueue(sq02, "Temporary Queue", "TBD")
+        }
+        System_Boundary(sb1, "Storage Layer", "Storage and Caching components") {
+            SystemDb(sd11, "Products DB", "Postgresql based RDBMS")      
+        }
+    }
+    System_Boundary(sb2, "External Dependencies", "External APIs") {
+        System_Ext(s21, "Sonar", "Sonar System")
+        System_Ext(s22, "Github Actions", "Github Pipeline")
+    }               
+}
+Rel(s01, sd11, "CRUD<br>Products")
+UpdateElementStyle(p1, $fontColor="yellow", $bgColor="green")
+UpdateElementStyle(p0, $fontColor="black", $bgColor="aqua")
+UpdateRelStyle(s01, sd11, $textColor="red", $lineColor="green")
+BiRel(s01, sq02, "TBD")
+```
+
+## Gradle
+```sh
+./gradlew build
+-> compileKotlin
+    -> tasks.ktlintFormat
+    -> postGenerateCleanup
+        -> generateServerStub
+            -> preGenerateCleanup
+```
 
 ## Notes
 ### Postgres

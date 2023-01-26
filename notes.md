@@ -1,8 +1,5 @@
 # Notes on tools used.
 ## Gradle:
-- written in groovy/kotlin.
-- 
-
 ### Commands
 ```sh
 ./gradlew build     # build project
