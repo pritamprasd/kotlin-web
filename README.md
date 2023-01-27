@@ -12,6 +12,8 @@ Sample Product repository
 - DAO Layer
     - Flyway : Migrations
     - Jooq : Dao
+        - Jooq task generation
+        - DB Context switching
 - Auth layer(Service discovery or one-to-one auth)
     - Client Authentication with API-KEY & Secret
     - Auto key Rotation
