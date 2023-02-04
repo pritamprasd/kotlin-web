@@ -39,12 +39,19 @@ paths:
                 $ref: "#/components/schemas/Error"
     post:
       summary: Create a product
-      operationId: createProducts
+      operationId: createProduct
       tags:
         - products
+      requestBody:
+        required: true
+        description: Properties to create a product
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
       responses:
         201:
-          description: Null response
+          description: Created
         default:
           description: unexpected error
           content:
@@ -77,11 +84,31 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    delete:
+      summary: Deletes a product
+      operationId: deleteProduct
+      tags:
+        - products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product to retrieve
+          schema:
+            type: string      
+      responses:
+        200:
+          description: Deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Product:
       required:
-        - id
         - name
       properties:
         id:

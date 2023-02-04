@@ -21,4 +21,12 @@ class ProductsController(
     override fun showProductById(productId: String): ResponseEntity<Product> {
         return ResponseEntity.ok(service.getProduct(productId.toInt()))
     }
+
+    override fun createProduct(product: Product): ResponseEntity<Unit> {
+        return ResponseEntity.ok(service.createProduct(product))
+    }
+
+    override fun deleteProduct(productId: String): ResponseEntity<Unit> {
+        return ResponseEntity.ok(service.deleteProduct(productId.toInt()))
+    }
 }
