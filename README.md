@@ -1,5 +1,5 @@
 # kotlin-web
-Sample Product repository
+Sample Product CRUD repository.
 
 ## Experimentation/ Sample Design:
 - Kotlin :heavy_check_mark: 
@@ -9,6 +9,9 @@ Sample Product repository
 - Docker-Compose :heavy_check_mark:
 - OpenAPI: Server stub generation :heavy_check_mark:
 - OpenAPI: Blocking Client stub geenration(Feign) 
+- Micrometer
+- Prometheus
+- Grafana to pull data from metrices
 - DAO Layer
     - Flyway : Migrations
     - Jooq : Dao
@@ -25,9 +28,6 @@ Sample Product repository
 - Caching with Redis
 - Keycloak for User Management.(Or for client managment)
 - Integration Tests
-- Micrometer Integration
-- Tools for metrices consumption
-- Grafana to pull data from metrices
 - Github pipeline
     - project build
     - setup sonar 
@@ -44,11 +44,11 @@ Enterprise_Boundary(eb0, "Enterprise Boundary") {
     Person(p0, "User", "A user having account in the system")
     Person(p1, "Admin", "Admin User")
     Enterprise_Boundary(eb1, "Internal System") {
-        System_Boundary(sb0, "Internal Services Layer", "") {
+        Boundary(sb0, "Internal Services Layer", "") {
             System(s01, "Products Service", "Service handling products inventory")            
             SystemQueue(sq02, "Temporary Queue", "TBD")
         }
-        System_Boundary(sb1, "Storage Layer", "Storage and Caching components") {
+        Boundary(sb1, "Storage Layer", "Storage and Caching components") {
             SystemDb(sd11, "Products DB", "Postgresql based RDBMS")      
         }
     }
@@ -57,6 +57,7 @@ Enterprise_Boundary(eb0, "Enterprise Boundary") {
         System_Ext(s22, "Github Actions", "Github Pipeline")
     }               
 }
+
 Rel(s01, sd11, "CRUD<br>Products")
 UpdateElementStyle(p1, $fontColor="yellow", $bgColor="green")
 UpdateElementStyle(p0, $fontColor="black", $bgColor="aqua")
@@ -79,3 +80,6 @@ BiRel(s01, sq02, "TBD")
 - db_url: 
 - Run `Postgres` from docker-compose file.
 - create .env file add values for `POSTGRES_USER`, `POSTGRES_PASSWORD`
+```
+psql -p 54320 -U postgres -h localhost
+```

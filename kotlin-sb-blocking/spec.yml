@@ -70,7 +70,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Products"
+                $ref: "#/components/schemas/Product"
         default:
           description: unexpected error
           content:
