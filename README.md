@@ -5,17 +5,17 @@ Sample Product CRUD repository.
 - Kotlin :heavy_check_mark: 
 - Spring Boot Blocking :heavy_check_mark: 
 - Postgres :heavy_check_mark: 
-- DB data viewer 
+- DB data viewer :heavy_check_mark:
 - Docker-Compose :heavy_check_mark:
 - OpenAPI: Server stub generation :heavy_check_mark:
-- OpenAPI: Blocking Client stub geenration(Feign) 
+- OpenAPI: Blocking Client stub geenration(Feign)  
 - Micrometer
 - Prometheus
 - Grafana to pull data from metrices
 - DAO Layer
-    - Flyway : Migrations
-    - Jooq : Dao
-        - Jooq task generation
+    - Flyway : Migrations :heavy_check_mark:
+    - Jooq : Dao :heavy_check_mark:
+        - Jooq task generation :heavy_check_mark:
         - DB Context switching
 - Auth layer(Service discovery or one-to-one auth)
     - Client Authentication with API-KEY & Secret
