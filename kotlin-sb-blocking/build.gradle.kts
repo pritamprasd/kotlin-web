@@ -81,18 +81,6 @@ jooq {
                       name = "org.jooq.meta.postgres.PostgresDatabase"
                       inputSchema = "public"
                       excludes = "flyway_schema_history"
-//                      forcedTypes.addAll(listOf(
-//                          ForcedType().apply {
-//                              name = "varchar"
-//                              includeExpression = ".*"
-//                              includeTypes = "JSONB?"
-//                          },
-//                          ForcedType().apply {
-//                              name = "varchar"
-//                              includeExpression = ".*"
-//                              includeTypes = "INET"
-//                          }
-//                      ))
                   }
                   generate.apply {
                       isDeprecated = false
@@ -122,7 +110,7 @@ val preGenerateCleanup by tasks.registering(Delete::class) {
 }
 val generateServerStub by tasks.registering(GenerateTask::class) {
     dependsOn(preGenerateCleanup)
-    inputSpec.set("$rootDir/spec.yml")
+    inputSpec.set("$rootDir/../spec.yml")
     outputDir.set(serverPath)
 
     generatorName.set("kotlin-spring")
