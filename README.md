@@ -33,8 +33,9 @@ Sample Product CRUD repository.
     - setup sonar 
     - OWASP ZAP integration
 - Kotlin:
-    - suspend and continuation
-    - 
+    - suspend and continuation adv level
+- Wireshark:
+    - Reactive client call flow
 
 ## HLD
 ```mermaid
